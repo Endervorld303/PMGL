@@ -56,7 +56,7 @@ FetchContent_Declare(stb
     FIND_PACKAGE_ARGS
 )
 
-FetchContent_MakeAvailable(glfw3 glm assimp stb)
+FetchContent_MakeAvailable(glfw glm assimp stb)
 add_library(stb INTERFACE)
 target_include_directories(stb INTERFACE ${stb_SOURCE_DIR})
 
