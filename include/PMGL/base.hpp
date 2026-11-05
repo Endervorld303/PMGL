@@ -1,7 +1,7 @@
 #ifndef BASE_HEAD
 #define BASE_HEAD
 #include <glad/glad.h>
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
