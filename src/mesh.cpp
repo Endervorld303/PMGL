@@ -1,5 +1,6 @@
 #include "PMGL/mesh.hpp"
 #include <string>
+#include <glad/glad.h>
 
 void PMGL::mesh::setupMesh(){
     glGenVertexArrays(1, &VAO);

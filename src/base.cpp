@@ -1,20 +1,26 @@
 #include "PMGL/base.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
 #include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
+namespace{
+    constexpr int MAJOR_VERSION = 3;
+    constexpr int MINOR_VERSION = 3;
+    constexpr int PROFILE = GLFW_OPENGL_CORE_PROFILE;
+}
+
 namespace PMGL{
     const glm::vec3 WORLD_UP = glm::vec3(0.0f, 1.0f, 0.0f);
-
-    void init_PMGL(int minor_version, int major_version, int profile){
+    void init_PMGL(){
         glfwInit();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major_version);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor_version);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, profile);
-
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, MAJOR_VERSION);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, MINOR_VERSION);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, PROFILE);
     }
     
     void terminate_PMGL(){
@@ -37,7 +43,7 @@ namespace PMGL{
         return buffer.str();
     }
 
-    GLenum shader_type(std::string_view file_name){
+    int shader_type(std::string_view file_name){
         size_t cut = file_name.rfind(".");
         
         if(cut == std::string::npos){

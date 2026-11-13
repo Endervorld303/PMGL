@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.30)
 
 project(PMGL C CXX)
 
@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(PMGL_BUILD_TESTS "Compila gli eseguibili di test" OFF)
-
 set(DEPENDENCIES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies" CACHE PATH "Cartella delle dipendenze")
 
 include(FetchContent)
@@ -51,12 +50,12 @@ FetchContent_Declare(assimp
 # STB #
 FetchContent_Declare(stb
     GIT_REPOSITORY "https://github.com/nothings/stb.git"
-    GIT_TAG master
+    GIT_TAG 9600522de53973336fa033a289858a4354cbb04c
     GIT_SHALLOW  TRUE
-    FIND_PACKAGE_ARGS
 )
 
 FetchContent_MakeAvailable(glfw glm assimp stb)
+
 add_library(stb INTERFACE)
 target_include_directories(stb INTERFACE ${stb_SOURCE_DIR})
 
@@ -68,7 +67,7 @@ target_include_directories(glad PUBLIC "${DEPENDENCIES_DIR}/GLAD 1/include")
 file(GLOB SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/*.c")
 add_library(${PROJECT_NAME} STATIC ${SOURCES} )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
@@ -76,18 +75,12 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC glm::glm
     PRIVATE glfw assimp::assimp stb glad)
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
-
-
-if(PMGL_BUILD_TESTS)
-    add_subdirectory(test)
+if(MVSC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
 endif()
 
-add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_CURRENT_SOURCE_DIR}/resource"
-    "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resource"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    "$<TARGET_FILE:assimp>"
-    "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
-)
+if(PMGL_BUILD_TESTS)
+    add_subdirectory(tests)
+endif()

@@ -11,7 +11,6 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#include <stb_image.h>
 #include <filesystem>
 
 const float radius = 10.0f;
@@ -21,26 +20,18 @@ float aspect = 800.0f / 600.0f;
 float deltaTime = 0;
 float fov = 45.0f;
 
-
 PMGL::vector2d mouse_update(PMGL::window &w);
 
 
 int main(){
    
    //Init
-   PMGL::init_PMGL(3, 3, GLFW_OPENGL_CORE_PROFILE);
+   PMGL::init_PMGL();
 
    //Setting up window
    PMGL::window win(800, 600, "PMGL");
    win.active();
    win.set_vsync(1);
-
-   //Setting up GLAD loader
-   if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
-         std::cout << "Failed to initialize GLAD \n";
-         return -1;
-   }
-   
    win.set_cursor_mode(PMGL::cursor_mode::normal);
 
    PMGL::shader shad1(std::vector<std::string>{"./resource/shaders/base.vert","./resource/shaders/base.frag", "./resource/shaders/light_base.frag", "./resource/shaders/textureMix.frag"});
@@ -276,31 +267,9 @@ void processInput(GLFWwindow *window){
    cam.set_trasformation(tcam);
 }
 
-void scroll_back(GLFWwindow *window, double xoffset, double yoffset){
-   fov -= (float)yoffset;
-   if(fov < 1.0f){
-      fov = 1.0f;
-   }
-   if(fov > 45.0f){
-      fov = 45.0f;
-   }
-   cam.set_fov(fov);
-}
 
 void framebuffer_size_callback(GLFWwindow *window, int w, int h){
    glViewport(0,0, w, h);
    aspect = (float)w / (float)h;
-}
-
-
-GLFWwindow *secureCreateWindow(int w, int h, const std::string name, GLFWmonitor *monitor, GLFWwindow *share){
-   GLFWwindow *window = glfwCreateWindow(w, h, name.c_str(), monitor, share);
-   if(window == NULL){
-      std::cout << "Failed creation of GLFW Window\n";
-      glfwTerminate();
-      exit(-1);
-   }
-      
-   return window;
 }
 */

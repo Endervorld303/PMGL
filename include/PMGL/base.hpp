@@ -1,7 +1,5 @@
 #ifndef BASE_HEAD
 #define BASE_HEAD
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -31,10 +29,10 @@ namespace PMGL{
 
 
     std::string read_file(std::string_view file_name);
-    void init_PMGL(int minor_version, int major_version, int profile);
+    void init_PMGL();
     void terminate_PMGL();
 
-    GLenum shader_type(std::string_view file_name);
+    int shader_type(std::string_view file_name);
     unsigned int load_texture(std::string_view path);
     unsigned int load_texture(std::string_view file_reference, std::string_view directory, bool gamma = false);
 }

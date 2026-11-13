@@ -2,6 +2,8 @@
 #include <iostream>
 #include <PMGL/base.hpp>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 /*
 ====================================================================================
@@ -69,6 +71,10 @@ namespace{
             return PMGL::action::unknown;
         }
     }
+
+    bool load_OPENGL(){
+        return gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    }
 };
 
 
@@ -134,6 +140,9 @@ void PMGL::window::init_window(){
     }
     active();
     glfwSetWindowUserPointer(*handle, this);
+    if(!load_OPENGL()){
+        throw std::runtime_error("GLAD NON AIUTA!!!\n");
+    }
     setup_callback();
 }
 

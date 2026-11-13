@@ -1,6 +1,7 @@
 #include "PMGL/shader.hpp"
 #include "PMGL/base.hpp"
 #include <span>
+#include <glad/glad.h>
 
 void PMGL::shader::clear_shader(){
     for(unsigned int shader_id : compiled_shader){

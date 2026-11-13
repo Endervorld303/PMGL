@@ -1,7 +1,6 @@
 #ifndef SHADER_HEAD
 #define SHADER_HEAD
 
-#include <glad/glad.h>
 
 #include <string>
 #include <fstream>
