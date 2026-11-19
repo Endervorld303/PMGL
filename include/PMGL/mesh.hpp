@@ -32,8 +32,10 @@ namespace PMGL{
 
         public:
             mesh(std::vector<vertex> vert, std::vector<unsigned int> ind, std::vector<texture> text);
-            void draw(const shader& shad);        
-    };
+            void draw(const shader& shad) const;
+            ~mesh();
+        };
+        
 
 }
 

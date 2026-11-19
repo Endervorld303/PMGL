@@ -129,8 +129,8 @@ PMGL::model::model(const std::string &path){
     loadModel(path);
 }
 
-void PMGL::model::draw(const shader &shad){
-    for(auto s_mesh : meshes){
+void PMGL::model::draw(const shader &shad) const{
+   for(auto& s_mesh : meshes){
         s_mesh.draw(shad);
     }
 }

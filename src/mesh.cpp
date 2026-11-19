@@ -34,7 +34,7 @@ PMGL::mesh::mesh(std::vector<vertex> vert, std::vector<unsigned int> ind, std::v
     setupMesh();
 }
 
-void PMGL::mesh::draw(const shader &shad){
+void PMGL::mesh::draw(const shader &shad) const{
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
     for(size_t i = 0; i < textures.size(); i++){
@@ -55,4 +55,10 @@ void PMGL::mesh::draw(const shader &shad){
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+
+PMGL::mesh::~mesh(){
+    glDeleteBuffers(1, &EBO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
 }

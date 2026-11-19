@@ -16,7 +16,7 @@ namespace PMGL{
             void loadModel(std::string path);
         public:
             model(const std::string& path);
-            void draw(const shader& shad);
+            void draw(const shader& shad) const;
     };
 }
 
