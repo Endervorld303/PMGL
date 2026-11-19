@@ -22,6 +22,7 @@ namespace PMGL{
         vector2d mouse_pos;
         vector2d mouse_delta;
         vector2d mouse_scrollDelta;
+        bool mouse_first_mov;
 
         //Util methods
         static size_t index(key_data k);

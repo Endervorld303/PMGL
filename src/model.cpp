@@ -54,7 +54,7 @@ namespace{
     }
 
     void processTextures(const aiMesh *meshe, const aiScene *scene, std::vector<PMGL::texture> &textures, std::vector<PMGL::texture> &loaded_textures, std::string_view directory){
-        if(meshe->mMaterialIndex >= 0){
+        if(meshe->mMaterialIndex < scene->mNumMaterials){
             aiMaterial *material = scene->mMaterials[meshe->mMaterialIndex];
             std::vector<PMGL::texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", loaded_textures, directory);
             textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());

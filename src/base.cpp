@@ -2,7 +2,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <glad/glad.h>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <filesystem>
 #include <iostream>
 #include <sstream>
@@ -15,7 +15,6 @@ namespace{
 }
 
 namespace PMGL{
-    const glm::vec3 WORLD_UP = glm::vec3(0.0f, 1.0f, 0.0f);
     void init_PMGL(){
         glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, MAJOR_VERSION);
@@ -133,5 +132,23 @@ namespace PMGL{
         stbi_image_free(data);
 
         return textureID;
+    }
+
+
+    float get_time(){
+        return glfwGetTime();
+    }
+
+    void set_flip_texture(bool _v){
+        stbi_set_flip_vertically_on_load(_v);
+    }
+
+
+    void enable_depth_test(bool _v){
+        if(_v){
+            glEnable(GL_DEPTH_TEST);
+        }else{
+            glDisable(GL_DEPTH_TEST);
+        }
     }
 }

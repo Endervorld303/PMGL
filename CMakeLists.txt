@@ -75,7 +75,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC glm::glm
     PRIVATE glfw assimp::assimp stb glad)
 
-if(MVSC)
+if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)

@@ -119,7 +119,7 @@ int main(){
    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
    glEnableVertexAttribArray(0);
 
-   stbi_set_flip_vertically_on_load(true);
+   PMGL::set_flip_texture(true);
    unsigned int texture1 = PMGL::load_texture("./resource/texture/container2.png");
    unsigned int specularTexture = PMGL::load_texture("./resource/texture/container2_specular.png");
    unsigned int emissionMap = PMGL::load_texture("./resource/texture/matrix.jpg");
@@ -134,7 +134,7 @@ int main(){
    
    PMGL::model backpack("./resource/objects/backpack/backpack.obj");
 
-   glEnable(GL_DEPTH_TEST);
+   PMGL::enable_depth_test(true);
 
    PMGL::trasform cube[] = {
       PMGL::trasform(glm::vec3(0.0)),
@@ -157,13 +157,12 @@ int main(){
    float lastFrame = 0;
    while(!win.should_close()){
       win.pollEvents();
-      float currentFrame = glfwGetTime();
+      float currentFrame = PMGL::get_time();
       mouse = mouse_update(win);
       deltaTime = currentFrame - lastFrame;
       lastFrame = currentFrame;   
       //std::cout << (float)(1/deltaTime) << " FPS\n";
-      glClearColor(0.5f, 0.5f, 0.5f, 0.1f);
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      win.clear(0.5f, 0.5f, 0.5f, 0.1f);
 
       PMGL::trasform tcam = cam.get_trasform();
       glm::quat qPitch = glm::angleAxis((float)-mouse.y * sensitivity, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -185,8 +184,8 @@ int main(){
          glDrawArrays(GL_TRIANGLES, 0, 36);
       }
       shad1.use();
-      shad1.setFloat("time", glfwGetTime());
-      shad1.setFloat("mix_var", abs(sin((glfwGetTime() / 0.5f) + 0.2f)));
+      shad1.setFloat("time", currentFrame);
+      shad1.setFloat("mix_var", abs(sin((currentFrame / 0.5f) + 0.2f)));
       shad1.setVec3("view_pos", cam.get_trasform().get_position());
       shad1.setMat4fv("projection_view", cam.getViewProjectionMatrix());
 
@@ -216,7 +215,7 @@ int main(){
       for(unsigned int i = 0; i < 4; i++){
 
          float angle = 20.0f * i;
-         float current_angle = (float) glfwGetTime() * glm::radians(angle);
+         float current_angle = (float) currentFrame * glm::radians(angle);
          glm::quat quat_rot = glm::angleAxis(current_angle, glm::normalize(glm::vec3(1.0f, 0.3, 0.5)));
          cube[i].set_rotation(quat_rot);
          

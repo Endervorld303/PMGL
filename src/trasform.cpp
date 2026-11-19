@@ -15,7 +15,9 @@ namespace PMGL{
     }
 
     //Position
-    glm::vec3 trasform::get_position() const{return position;}
+    glm::vec3 trasform::get_position() const{
+        return position;
+    }
     void trasform::set_position(const glm::vec3 &new_pos){
         position = new_pos;
         set_dirty();
@@ -25,6 +27,7 @@ namespace PMGL{
     void trasform::translate(const glm::vec3 &delta){
         position += delta;
         set_dirty();
+        set_dirty_view();
     }
 
     
@@ -40,7 +43,8 @@ namespace PMGL{
     }
 
     void trasform::set_euler_rotation(const glm::vec3 &eul_rot){
-        glm::quat new_rot = glm::quat(eul_rot); 
+        glm::quat new_rot = glm::quat(eul_rot);
+        rotation = new_rot; 
         set_dirty();
         set_dirty_view();
     }
@@ -66,7 +70,10 @@ namespace PMGL{
 
     //Scale 
     glm::vec3 trasform::get_scale() const{return scale;}
-    void trasform::set_scale(glm::vec3 new_scale){scale = new_scale;}
+    void trasform::set_scale(glm::vec3 new_scale){
+        scale = new_scale;
+        set_dirty();
+    }
 
 
     //Model
@@ -79,7 +86,6 @@ namespace PMGL{
             model = T * R * S;
             is_dirty = false;
         }
-
         return model;
     }
 
@@ -94,11 +100,17 @@ namespace PMGL{
     }
 
     //Get Axis
-    glm::vec3 trasform::get_up() const{return rotation * glm::vec3(0.0, 1.0, 0.0);}
+    glm::vec3 trasform::get_up() const{
+        return rotation * glm::vec3(0.0, 1.0, 0.0);
+    }
 
-    glm::vec3 trasform::get_right() const{return rotation * glm::vec3(1.0, 0.0, 0.0);}
+    glm::vec3 trasform::get_right() const{
+        return rotation * glm::vec3(1.0, 0.0, 0.0);
+    }
     
-    glm::vec3 trasform::get_forward() const{return rotation * glm::vec3(0.0, 0.0, -1.0);}
+    glm::vec3 trasform::get_forward() const{
+        return rotation * glm::vec3(0.0, 0.0, -1.0);
+    }
 
     /*
     * =============================

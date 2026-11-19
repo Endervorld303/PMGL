@@ -31,6 +31,9 @@ void PMGL::Input::push_input(const event &_e){
         case event_type::MOUSE_SCROLL:
         set_mouseScroll(_e);
         break;
+        
+        default:    //Ignore the rest because they are not input
+        return;
     }
 }
 
@@ -48,6 +51,10 @@ void PMGL::Input::update_currentkeys(const event &_e){
         case action::released:
         current_keys.reset(index(key_value));
         break;
+
+        case action::repeat:
+        case action::unknown:
+        return;
     }
 }
 
@@ -65,6 +72,10 @@ void PMGL::Input::update_currentButton(const event &_e){
         case action::released:
         current_button.reset(index(button_value));
         break;
+
+        case action::repeat:
+        case action::unknown:
+        return;
     }
 }
 
@@ -95,7 +106,7 @@ size_t PMGL::Input::index(mouse_button m){
 /*
     COSTUCTOR
 */
-PMGL::Input::Input() : mouse_pos(0.0f,0.0f), mouse_delta(0.0f, 0.0f), mouse_scrollDelta(0.0f, 0.0f){}
+PMGL::Input::Input() : mouse_pos(0.0f,0.0f), mouse_delta(0.0f, 0.0f), mouse_scrollDelta(0.0f, 0.0f), mouse_first_mov(true){}
 
 
 /*

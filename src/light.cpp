@@ -23,7 +23,7 @@ void PMGL::apply_light_shader(const shader &shad, const point_light &light, int 
 
 void PMGL::apply_light_vector_shader(const shader &shad, const std::span<point_light> &lights){
     shad.setInt("n_point", lights.size());
-    for(int i = 0; i < lights.size(); i++){
+    for(size_t i = 0; i < lights.size(); i++){
         apply_light_shader(shad, lights[i], i);
     }
 }

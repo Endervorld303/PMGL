@@ -1,6 +1,8 @@
 #ifndef BASE_HEAD
 #define BASE_HEAD
 
+#include <string>
+#include <string_view>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -9,7 +11,6 @@
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/compatibility.hpp>
 
-#include <string>
 
 const glm::vec3 WORLD_FRONT = glm::vec3(0.0f, 0.0, -1.0f);
 const glm::vec3 WORLD_UP = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -25,6 +26,12 @@ namespace PMGL{
         vector2d(float _x = 0, float _y = 0) : x(_x), y(_y){};
         friend vector2d operator+(vector2d, vector2d);
         friend vector2d operator-(vector2d, vector2d);
+        friend vector2d operator*(vector2d, vector2d);
+        friend vector2d operator/(vector2d, vector2d);
+        friend vector2d operator+=(vector2d, vector2d);
+        friend vector2d operator-=(vector2d, vector2d);
+        friend vector2d operator*=(vector2d, vector2d);
+        friend vector2d operator/=(vector2d, vector2d);     
     };
 
 
@@ -35,6 +42,9 @@ namespace PMGL{
     int shader_type(std::string_view file_name);
     unsigned int load_texture(std::string_view path);
     unsigned int load_texture(std::string_view file_reference, std::string_view directory, bool gamma = false);
+    float get_time();
+    void set_flip_texture(bool _v);
+    void enable_depth_test(bool _v);
 }
 
 

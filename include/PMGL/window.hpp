@@ -10,7 +10,6 @@
 
 namespace PMGL{
 
-
     enum class cursor_mode{
         unavailable = 0, 
         normal,
@@ -50,7 +49,7 @@ namespace PMGL{
         
         public:
         //Costructor
-        window(int _w, int _h, std::string_view _name, window_states _state = window_states::WINDOWED, handle_window* _context = nullptr);
+        window(int _w, int _h, std::string_view _name, window_states _state = window_states::WINDOWED);
         window(window &w) = delete;
         window& operator=(const window &w) = delete; 
         window(window &&w) = delete;
@@ -63,7 +62,9 @@ namespace PMGL{
         bool is_on_focus() const;
         void end_frame();
         const handle_window* share_context() const;
-        
+        void clear(int red, int blue, int green, int gamma);
+
+
         //Setter
         void set_vsync(int value);
         void set_cursor_mode(cursor_mode mode);

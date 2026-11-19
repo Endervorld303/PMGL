@@ -224,7 +224,7 @@ void PMGL::window::set_focus(bool _focus){
                             COSTRUCTOR AND DESTRUCTOR
 ===========================================================================================
 */
-PMGL::window::window(int _w, int _h, std::string_view _name, window_states _state, handle_window  *_context) 
+PMGL::window::window(int _w, int _h, std::string_view _name, window_states _state) 
                     : width(_w), heigth(_h), name(_name), state(_state)
 {
     init_window();
@@ -269,7 +269,10 @@ const PMGL::window::handle_window *PMGL::window::share_context() const{
 }
 
 
-
+void PMGL::window::clear(int red, int green, int blue, int gamma){
+    glClearColor(red, green, blue, gamma);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Remember in future to add a field for the mask(Color, depth and stencil)
+}
 
 /*
     SETTERS

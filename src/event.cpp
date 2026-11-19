@@ -39,7 +39,7 @@ namespace PMGL{
     }
 
     bool operator!=(const keyboard_event &key1, const keyboard_event &key2){
-        return ((key1.value != key2.value) && (key1.mods != key2.mods));
+        return ((key1.value != key2.value) || (key1.mods != key2.mods));
     }
 
 
